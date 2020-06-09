@@ -23,5 +23,24 @@ public class FirstUniqueCharacterInaString {
 
 		return -1;
 	}
+	// Best Solution
+	private int getFirstUChar(String str) {
+
+		Map<Character, Integer> charMap = new HashMap<>();
+
+		for(int i=0; i <str.length(); i++) {
+			if(charMap.containsKey(str.charAt(i))) {
+				charMap.put(str.charAt(i), -1);
+			} else {
+				charMap.put(str.charAt(i), i);
+			}
+		}
+		int min = Integer.MAX_VALUE;
+		for(char c : charMap.keySet()) {
+			if(charMap.get(c) != -1 && charMap.get(c)<min)
+				min = charMap.get(c);
+		}
+		return min;
+	}
 
 }
