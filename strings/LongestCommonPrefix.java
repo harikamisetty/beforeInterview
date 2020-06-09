@@ -3,6 +3,22 @@ package com.hari.dsal.strings;
 import java.util.Arrays;
 
 public class LongestCommonPrefix {
+	private String getCommonPrefix(String[] strs) {
+		if(strs == null || strs.length ==0)
+			return null;
+
+		Arrays.sort(strs);
+		char[] first = strs[0].toCharArray();
+		char[] last  = strs[strs.length-1].toCharArray();
+
+		for(int i=0; i<first.length; i++) {
+			if(first[i] != last[i])
+				return String.valueOf(first).substring(0, i);
+			if(i == first.length-1)
+				return String.valueOf(first);
+		}
+		return null;
+	}
 	
 	public static String longestCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) {
