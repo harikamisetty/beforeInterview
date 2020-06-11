@@ -4,11 +4,39 @@ import java.util.Arrays;
 
 public class ScrambleString {
 
+	
+
+	private boolean isScrambleString(String s1, String s2) {
+		if(s1.equalsIgnoreCase(s2))
+			return true;
+		int[] letters = new int[26];
+
+		for(int i=0; i< s1.length(); i++) {
+			letters[s1.charAt(i) - 'a']++;
+			letters[s2.charAt(i) - 'a']--;
+		}
+		for(int i=0; i<26; i++)
+			if(letters[i]!=0)
+				return false;
+
+		for(int i=1; i<s1.length(); i++) {
+			if(isScrambleString(s1.substring(0, i), s2.substring(0, i))&&
+			isScrambleString(s1.substring(i), s2.substring(i)))
+				return true;
+
+			if(isScrambleString(s1.substring(0, i), s2.substring(s2.length()-i)) &&
+			isScrambleString(s1.substring(i), s2.substring(0, s2.length()-i)))
+				return true;
+		}
+		return false;
+	}
+
 	public boolean isScramble(String s1, String s2) {
+		// Length check
 		if (s1.length() != s2.length()) {
 			return false;
 		}
-
+		// Single element check
 		if (s1.length() == 1 && s2.length() == 1) {
 			if (s1.charAt(0) == s2.charAt(0)) {
 				return true;
@@ -16,7 +44,7 @@ public class ScrambleString {
 				return false;
 			}
 		}
-
+		// SORT and compare arrays
 		char[] array1 = s1.toCharArray();
 		char[] array2 = s2.toCharArray();
 		Arrays.sort(array1);
@@ -25,9 +53,11 @@ public class ScrambleString {
 			return false;
 		}
 
+		// Move arrays position and validate
 		for (int i = 1; i < s1.length(); i++) {
 			String s11 = s1.substring(0, i);
 			String s12 = s1.substring(i);
+
 			String s21 = s2.substring(0, i);
 			String s22 = s2.substring(i);
 
@@ -45,4 +75,11 @@ public class ScrambleString {
 
 		return false;
 	}
+
+	public static void main(String[] args) {
+		ScrambleString ss = new ScrambleString();
+		System.out.println(ss.isScrambleString("great", "rgtae"));
+		System.out.println(ss.isScramble("great", "rgeat"));
+	}
+
 }
