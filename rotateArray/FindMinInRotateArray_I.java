@@ -22,7 +22,7 @@ public class FindMinInRotateArray_I {
 				end = mid -1;
 			}
 		}
-		return a[start];
+		return a[start]; // To return if the start and end equals
 	}
 
 	public static void main(String[] args) {
